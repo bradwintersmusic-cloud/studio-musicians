@@ -1214,7 +1214,6 @@
       if (m["Email Address"]) { lines.push("Email: " + m["Email Address"]); }
       if (m["Phone Number"]) { lines.push("Phone: " + m["Phone Number"]); }
       if (primaryInstruments.length) { lines.push("Instruments: " + primaryInstruments.join(", ")); }
-      if (primaryGenres.length) { lines.push("Genre: " + (primaryGenres.indexOf("All") !== -1 ? "All Genres" : primaryGenres.join(", "))); }
       copyText(lines.join("\n"), modalCopyAll);
     });
 
