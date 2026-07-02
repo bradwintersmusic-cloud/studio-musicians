@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AET Session Musicians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0b0f;
+      --surface:   #13131b;
+      --surface2:  #1b1b26;
+      --border:    #252533;
+      --accent:    #c8a86b;
+      --accent-bg: rgba(200, 168, 107, 0.10);
+      --text:      #e6e2d9;
+      --muted:     #8f8e9d;
+      --blue:      #5b9cf6;
+      --blue-bg:   rgba(91, 156, 246, 0.10);
+      --green:     #4caf82;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 48px 28px 100px;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      max-width: 920px;
+      margin: 0 auto 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wordmark {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 22px;
+    }
+
+    /* ── Signup CTA ── */
+    .signup-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .signup-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #0b0b0f;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      align-self: flex-start;
+      transition: opacity 0.15s;
+    }
+
+    .signup-btn:hover { opacity: 0.88; }
+
+    .signup-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: #0b0b0f;
+      flex-shrink: 0;
+    }
+
+    .signup-disclaimer {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 180px;
+      max-width: 260px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: var(--muted);
+      stroke-width: 2;
+      stroke-linecap: round;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      padding: 6px 10px 6px 30px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus { border-color: var(--accent); }
+
+    .filter-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 28px 6px 10px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238f8e9d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 9px center;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .filter-select:focus,
+    .filter-select.active { border-color: var(--accent); color: var(--accent); }
+
+    .filter-select option {
+      background: var(--surface2);
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      display: none;
+    }
+
+    .clear-btn.visible { display: block; }
+    .clear-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .result-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    /* ── Content ── */
+    .content { max-width: 920px; margin: 0 auto; margin-top: 28px; }
+
+    /* ── Alphabet dividers ── */
+    .alpha-group { margin-bottom: 32px; }
+
+    .alpha-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2px;
+    }
+
+    /* ── Musician row ── */
+    .musician-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .musician-row:last-child { border-bottom: none; }
+    .musician-row:hover { background: var(--surface); }
+
+    .musician-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+
+    .musician-row:hover .musician-name { color: var(--accent); }
+
+    .musician-instruments {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--blue);
+      flex: 1;
+    }
+
+    .musician-genre {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .musician-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .row-arrow {
+      color: var(--muted);
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: color 0.12s;
+    }
+
+    .musician-row:hover .row-arrow { color: var(--accent); }
+
+    /* ── Load / empty states ── */
+    .load-state {
+      max-width: 920px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 60px 0;
+    }
+
+    .empty-state {
+      display: none;
+      max-width: 920px;
+      margin: 40px auto 0;
+      text-align: center;
+      padding: 60px 0;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 11, 15, 0.88);
+      z-index: 100;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 20px 60px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      width: 100%;
+      max-width: 560px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      margin: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .modal-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .modal-year-major {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .modal-close {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 4px 8px;
+      flex-shrink: 0;
+      transition: border-color 0.12s, color 0.12s;
+    }
+
+    .modal-close:hover { border-color: var(--muted); color: var(--text); }
+
+    /* Copy all button */
+    .modal-copy-all {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      width: calc(100% - 40px);
+      margin: 16px 20px 0;
+      padding: 11px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .modal-copy-all:hover { border-color: var(--accent); color: var(--accent); }
+    .modal-copy-all svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; flex-shrink: 0; }
+    .modal-copy-all.copied { border-color: var(--green); color: var(--green); }
+
+    .modal-body {
+      padding: 18px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Modal field rows */
+    .modal-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .modal-field-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .modal-field-value {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Contact field with inline copy button */
+    .modal-contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modal-contact-row .modal-field { flex: 1; }
+
+    .inline-copy {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      transition: border-color 0.12s, color 0.12s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .inline-copy svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+    .inline-copy:hover { border-color: var(--accent); color: var(--accent); }
+    .inline-copy.copied { border-color: var(--green); color: var(--green); }
+
+    /* Tag pills in modal */
+    .modal-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .modal-pill {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Click track badge ── */
+    .click-badge {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .click-badge.yes { background: rgba(76,175,130,0.15); color: var(--green); border: 1px solid rgba(76,175,130,0.3); }
+    .click-badge.practice { background: var(--accent-bg); color: var(--accent); border: 1px solid rgba(200,168,107,0.3); }
+    .click-badge.no { background: rgba(143,142,157,0.10); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ── Floating nav ── */
+    .belmont-nav { position: fixed; z-index: 200; top: 24px; left: 24px; }
+
+    @media (max-width: 560px) {
+      .belmont-nav { top: auto; left: auto; bottom: 20px; right: 20px; }
+      body { padding: 32px 16px 80px; }
+      .search-wrap { max-width: 100%; }
+      .musician-genre { display: none; }
+      .musician-year { display: none; }
+      .result-count { margin-left: 0; width: 100%; }
+    }
+
+    .belmont-nav-toggle {
+      width: 38px;
+      height: 38px;
+      background: var(--surface);
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+
+    .belmont-nav-toggle:hover { background: var(--surface2); }
+    .belmont-nav-toggle svg { width: 16px; height: 16px; }
+    .belmont-nav-toggle svg rect { fill: var(--accent); }
+
+    .belmont-nav-menu {
+      position: absolute;
+      top: 46px;
+      left: 0;
+      min-width: 196px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    @media (max-width: 560px) {
+      .belmont-nav-menu { top: auto; bottom: 46px; left: auto; right: 0; transform: translateY(6px); }
+    }
+
+    .belmont-nav.open .belmont-nav-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    .belmont-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 14px;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+
+    .belmont-nav-link:last-child { border-bottom: none; }
+    .belmont-nav-link:hover { background: var(--surface2); }
+
+    .belmont-nav-link-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .belmont-nav-link-icon svg { width: 15px; height: 15px; }
+
+    .belmont-nav-link-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .belmont-nav-link.is-current .belmont-nav-link-icon {
+      color: var(--blue);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(91,156,246,0.18), 0 0 14px rgba(91,156,246,0.35);
+    }
+
+    .belmont-nav-link.is-current .belmont-nav-link-label { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <div class="belmont-nav" id="belmontNav" data-current="musicians">
+    <button class="belmont-nav-toggle" id="belmontNavToggle" aria-label="Open navigation" aria-expanded="false">
+      <svg viewBox="0 0 16 16">
+        <rect x="2" y="4" width="12" height="1.6" rx="0.8"/>
+        <rect x="2" y="7.2" width="12" height="1.6" rx="0.8"/>
+        <rect x="2" y="10.4" width="12" height="1.6" rx="0.8"/>
+      </svg>
+    </button>
+    <nav class="belmont-nav-menu">
+      <a class="belmont-nav-link" data-page="schedule" href="https://bradwintersmusic-cloud.github.io/studioassistant-sync/">
+        <span class="belmont-nav-link-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M2 4h20v18H2zm5-3v3m10-3v3M2 8h20M5 12.5h3m-3 5h3m2.5-5h3m2.5 0h3m-8.5 5h3"/></svg>
+        </span>
+        <span class="belmont-nav-link-label">Studio Schedule</span>
+      </a>
+      <a class="belmont-nav-link" data-page="videos" href="https://bradwintersmusic-cloud.github.io/studio-videos/">
+        <span class="belmont-nav-link-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><path d="M3.5 5.5h-3v18h18v-3"/><path d="M22.5 1.5h-19v19h19z"/><path d="M10.5 7v8l7-4z"/></g></svg>
+        </span>
+        <span class="belmont-nav-link-label">Video Library</span>
+      </a>
+      <a class="belmont-nav-link" data-page="policies" href="https://bradwintersmusic-cloud.github.io/studio-policies/">
+        <span class="belmont-nav-link-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m2.3 20.28l9.6-9.6l-1.4-1.42l-.72.71a.996.996 0 0 1-1.41 0l-.71-.71a.996.996 0 0 1 0-1.41l5.66-5.66a.996.996 0 0 1 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.69l1.42 1.43a.996.996 0 0 1 1.41 0c.39.39.39 1.03 0 1.42l1.41 1.41l.71-.71c.39-.39 1.03-.39 1.42 0l.7.71c.39.39.39 1.03 0 1.42l-5.65 5.65c-.39.39-1.03.39-1.42 0l-.7-.7a.99.99 0 0 1 0-1.42l.7-.71l-1.41-1.41l-9.61 9.61a.996.996 0 0 1-1.41 0c-.39-.39-.39-1.03 0-1.42M20 19a2 2 0 0 1 2 2v1H12v-1a2 2 0 0 1 2-2z"/></svg>
+        </span>
+        <span class="belmont-nav-link-label">Policies</span>
+      </a>
+      <a class="belmont-nav-link" data-page="tools" href="https://bradwintersmusic-cloud.github.io/studio-tools/">
+        <span class="belmont-nav-link-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </span>
+        <span class="belmont-nav-link-label">Studio Tools</span>
+      </a>
+      <a class="belmont-nav-link is-current" data-page="musicians" href="https://bradwintersmusic-cloud.github.io/studio-musicians/">
+        <span class="belmont-nav-link-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+        </span>
+        <span class="belmont-nav-link-label">Session Musicians</span>
+      </a>
+    </nav>
+  </div>
+
+  <header class="page-header">
+    <div class="wordmark">Belmont University &middot; AET</div>
+    <h1>Session Musicians</h1>
+    <div class="meta">Belmont AET students available for session work</div>
+
+    <div class="signup-block">
+      <a class="signup-btn" href="https://tally.so/r/81WlNY" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16"><path d="M8 1v14M1 8h14"/></svg>
+        Sign Up as a Session Musician
+      </a>
+      <p class="signup-disclaimer">
+        This is a public-facing directory. Information submitted here is visible to anyone with the link.
+        No data is protected or private. Participation is entirely voluntary.
+      </p>
+    </div>
+
+    <div class="controls">
+      <div class="search-wrap">
+        <svg viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search musicians...">
+      </div>
+
+      <select class="filter-select" id="instrumentFilter">
+        <option value="">All Instruments</option>
+        <option>Acoustic Guitar</option>
+        <option>Bass Guitar</option>
+        <option>Cello</option>
+        <option>Clarinet</option>
+        <option>Drums/Percussion</option>
+        <option>Electric Guitar</option>
+        <option>Flute</option>
+        <option>Harmonica</option>
+        <option>Piano/Keys</option>
+        <option>Saxophone</option>
+        <option>Steel Guitar</option>
+        <option>Trombone</option>
+        <option>Trumpet</option>
+        <option>Upright Bass</option>
+        <option>Viola</option>
+        <option>Violin</option>
+        <option>Vocals</option>
+        <option>Other</option>
+      </select>
+
+      <select class="filter-select" id="genreFilter">
+        <option value="">All Genres</option>
+        <option>Americana/Folk</option>
+        <option>Classical</option>
+        <option>Country</option>
+        <option>Film/TV/Media</option>
+        <option>Gospel</option>
+        <option>Hip-Hop/Trap</option>
+        <option>Jazz</option>
+        <option>Latin</option>
+        <option>Metal</option>
+        <option>Other</option>
+        <option>Pop</option>
+        <option>R&amp;B/Soul</option>
+        <option>Rock</option>
+      </select>
+
+      <select class="filter-select" id="clickFilter">
+        <option value="">Click Track</option>
+        <option value="Yes — Comfortably">Comfortably</option>
+        <option value="Yes — With Practice">With Practice</option>
+        <option value="Not Yet">Not Yet</option>
+      </select>
+
+      <select class="filter-select" id="yearFilter">
+        <option value="">All Years</option>
+        <option>Freshman</option>
+        <option>Sophomore</option>
+        <option>Junior</option>
+        <option>Senior</option>
+        <option>Graduate</option>
+      </select>
+
+      <select class="filter-select" id="availFilter">
+        <option value="">All Availability</option>
+        <option>Weekday Mornings</option>
+        <option>Weekday Afternoons</option>
+        <option>Weekday Evenings</option>
+        <option>Saturday Morning</option>
+        <option>Saturday Afternoon</option>
+        <option>Saturday Night</option>
+        <option>Sunday Morning</option>
+        <option>Sunday Afternoon</option>
+        <option>Sunday Night</option>
+        <option>Flexible</option>
+      </select>
+
+      <button class="clear-btn" id="clearBtn">Clear Filters</button>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+  </header>
+
+  <div class="load-state" id="loadState">Loading musicians...</div>
+  <div class="empty-state" id="emptyState">No musicians match your filters.</div>
+  <main class="content" id="mainContent"></main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-year-major" id="modalYearMajor"></div>
+        </div>
+        <button class="modal-close" id="modalClose">&#x2715;</button>
+      </div>
+
+      <button class="modal-copy-all" id="modalCopyAll">
+        <svg viewBox="0 0 16 16"><rect x="4" y="4" width="9" height="10" rx="1"/><path d="M3 3V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1"/></svg>
+        <span id="modalCopyAllLabel">Copy Name, Contact, Instruments &amp; Genre</span>
+      </button>
+
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════════
+    // CONFIGURATION
+    // Replace this URL with your published Google Sheet CSV URL.
+    // In Google Sheets: File → Share → Publish to web → CSV → Copy URL
+    // Add ?v=timestamp for cache busting (handled automatically below)
+    // ══════════════════════════════════════════════════════════════════
+    var SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTb6kQbjrdGcsvqohDfRk1ZikfYLPVIblfM0NV4gTBR0LyoxC7qbxHE5NNYbJpUs9Raq2g7jpYCQ-O4/pub?gid=808732490&single=true&output=csv";
+
+    // ── STATE ─────────────────────────────────────────────────────────
+    var allMusicians = [];
+    var activeSearch = "";
+    var activeInstrument = "";
+    var activeGenre = "";
+    var activeClick = "";
+    var activeYear = "";
+    var activeAvail = "";
+
+    // ── ELEMENTS ──────────────────────────────────────────────────────
+    var mainContent = document.getElementById("mainContent");
+    var loadState = document.getElementById("loadState");
+    var emptyState = document.getElementById("emptyState");
+    var resultCount = document.getElementById("resultCount");
+    var clearBtn = document.getElementById("clearBtn");
+
+    // ── CSV PARSER ────────────────────────────────────────────────────
+    // Handles quoted fields containing commas
+    function parseCSV(text) {
+      var rows = [];
+      var lines = text.split("\n");
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line) { continue; }
+        var row = [];
+        var inQuote = false;
+        var cell = "";
+        for (var c = 0; c < line.length; c++) {
+          var ch = line[c];
+          if (ch === '"') {
+            if (inQuote && line[c + 1] === '"') { cell += '"'; c++; }
+            else { inQuote = !inQuote; }
+          } else if (ch === ',' && !inQuote) {
+            row.push(cell.trim());
+            cell = "";
+          } else {
+            cell += ch;
+          }
+        }
+        row.push(cell.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function csvToObjects(rows) {
+      if (rows.length < 2) { return []; }
+      var headers = rows[0];
+      var result = [];
+      for (var i = 1; i < rows.length; i++) {
+        var obj = {};
+        for (var j = 0; j < headers.length; j++) {
+          obj[headers[j]] = rows[i][j] || "";
+        }
+        result.push(obj);
+      }
+      return result;
+    }
+
+    // ── LOAD DATA ─────────────────────────────────────────────────────
+    fetch(SHEET_CSV_URL + "&t=" + Date.now())
+      .then(function(res) {
+        if (!res.ok) { throw new Error("HTTP " + res.status); }
+        return res.text();
+      })
+      .then(function(text) {
+        var rows = parseCSV(text);
+        var objects = csvToObjects(rows);
+
+        allMusicians = [];
+        for (var i = 0; i < objects.length; i++) {
+          var m = objects[i];
+          // Skip inactive rows — missing or non-FALSE active field = show
+          var activeVal = (m["Active"] || "").trim().toUpperCase();
+          if (activeVal === "FALSE") { continue; }
+          // Skip rows missing required fields
+          if (!m["First Name"] || !m["Last Name"]) { continue; }
+          allMusicians.push(m);
+        }
+
+        // Sort alphabetically by first name then last name
+        allMusicians.sort(function(a, b) {
+          var nameA = (a["First Name"] + " " + a["Last Name"]).toLowerCase();
+          var nameB = (b["First Name"] + " " + b["Last Name"]).toLowerCase();
+          return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+        });
+
+        loadState.style.display = "none";
+        render();
+      })
+      .catch(function(err) {
+        loadState.textContent = "Could not load musician data. (" + err.message + ")";
+      });
+
+    // ── HELPERS ───────────────────────────────────────────────────────
+    // Parse a comma-separated cell into a trimmed array, ignoring empty
+    function splitCell(val) {
+      if (!val) { return []; }
+      var parts = val.split(",");
+      var out = [];
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i].trim();
+        if (p) { out.push(p); }
+      }
+      return out;
+    }
+
+    // Check if a musician's instruments include a value
+    function hasInstrument(m, instrument) {
+      var primary = splitCell(m["Primary Instruments"]);
+      var additional = splitCell(m["Additional Instruments"]);
+      var all = primary.concat(additional);
+      for (var i = 0; i < all.length; i++) {
+        if (all[i] === instrument) { return true; }
+      }
+      return false;
+    }
+
+    // Check if a musician's genres include a value
+    // "All" checkbox matches every genre filter
+    function hasGenre(m, genre) {
+      var primary = splitCell(m["Primary Genre"]);
+      var additional = splitCell(m["Additional Genres"]);
+      var all = primary.concat(additional);
+      for (var i = 0; i < all.length; i++) {
+        if (all[i] === "All" || all[i] === genre) { return true; }
+      }
+      return false;
+    }
+
+    // Check if availability includes a value
+    function hasAvail(m, avail) {
+      var vals = splitCell(m["Availability"]);
+      for (var i = 0; i < vals.length; i++) {
+        if (vals[i] === avail) { return true; }
+      }
+      return false;
+    }
+
+    // ── FILTER ────────────────────────────────────────────────────────
+    function isFiltered() {
+      return activeSearch || activeInstrument || activeGenre || activeClick || activeYear || activeAvail;
+    }
+
+    function matchesFilters(m) {
+      if (activeInstrument && !hasInstrument(m, activeInstrument)) { return false; }
+      if (activeGenre && !hasGenre(m, activeGenre)) { return false; }
+      if (activeClick && m["Click Track"] !== activeClick) { return false; }
+      if (activeYear && m["School Year"] !== activeYear) { return false; }
+      if (activeAvail && !hasAvail(m, activeAvail)) { return false; }
+      if (activeSearch) {
+        var q = activeSearch.toLowerCase();
+        var name = (m["First Name"] + " " + m["Last Name"]).toLowerCase();
+        var instruments = (m["Primary Instruments"] + " " + m["Additional Instruments"]).toLowerCase();
+        var genres = (m["Primary Genre"] + " " + m["Additional Genres"]).toLowerCase();
+        var notes = (m["About Me"] || "").toLowerCase();
+        if (name.indexOf(q) === -1 &&
+            instruments.indexOf(q) === -1 &&
+            genres.indexOf(q) === -1 &&
+            notes.indexOf(q) === -1) { return false; }
+      }
+      return true;
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────
+    function render() {
+      mainContent.innerHTML = "";
+      emptyState.style.display = "none";
+
+      var filtered = [];
+      for (var i = 0; i < allMusicians.length; i++) {
+        if (matchesFilters(allMusicians[i])) { filtered.push(allMusicians[i]); }
+      }
+
+      resultCount.textContent = filtered.length + " musician" + (filtered.length !== 1 ? "s" : "");
+
+      if (filtered.length === 0) {
+        emptyState.style.display = "block";
+        return;
+      }
+
+      // Group by first letter of first name
+      var groups = {};
+      var groupOrder = [];
+      for (var i = 0; i < filtered.length; i++) {
+        var letter = (filtered[i]["First Name"] || "?")[0].toUpperCase();
+        if (!groups[letter]) { groups[letter] = []; groupOrder.push(letter); }
+        groups[letter].push(filtered[i]);
+      }
+
+      for (var g = 0; g < groupOrder.length; g++) {
+        var letter = groupOrder[g];
+        var group = document.createElement("div");
+        group.className = "alpha-group";
+
+        var label = document.createElement("div");
+        label.className = "alpha-label";
+        label.textContent = letter;
+        group.appendChild(label);
+
+        var list = document.createElement("div");
+        for (var i = 0; i < groups[letter].length; i++) {
+          list.appendChild(buildRow(groups[letter][i]));
+        }
+        group.appendChild(list);
+        mainContent.appendChild(group);
+      }
+    }
+
+    function buildRow(m) {
+      var primaryInstruments = splitCell(m["Primary Instruments"]);
+      var primaryGenres = splitCell(m["Primary Genre"]);
+
+      var instrText = primaryInstruments.join(", ") || "—";
+      var genreText = primaryGenres.indexOf("All") !== -1 ? "All Genres" : primaryGenres.join(", ") || "—";
+
+      var row = document.createElement("div");
+      row.className = "musician-row";
+      row.innerHTML =
+        '<span class="musician-name">' + m["First Name"] + " " + m["Last Name"] + '</span>' +
+        '<span class="musician-instruments">' + instrText + '</span>' +
+        '<span class="musician-genre">' + genreText + '</span>' +
+        '<span class="musician-year">' + (m["School Year"] || "") + '</span>' +
+        '<span class="row-arrow">&#8250;</span>';
+
+      row.addEventListener("click", function(musician) {
+        return function() { openModal(musician); };
+      }(m));
+
+      return row;
+    }
+
+    // ── CLICK BADGE HELPER ────────────────────────────────────────────
+    function clickBadgeClass(val) {
+      if (!val) { return "no"; }
+      if (val.indexOf("Comfortably") !== -1) { return "yes"; }
+      if (val.indexOf("Practice") !== -1) { return "practice"; }
+      return "no";
+    }
+
+    // ── MODAL ─────────────────────────────────────────────────────────
+    var overlay = document.getElementById("modalOverlay");
+    var modalName = document.getElementById("modalName");
+    var modalYearMajor = document.getElementById("modalYearMajor");
+    var modalBody = document.getElementById("modalBody");
+    var modalClose = document.getElementById("modalClose");
+    var modalCopyAll = document.getElementById("modalCopyAll");
+    var modalCopyAllLabel = document.getElementById("modalCopyAllLabel");
+
+    var currentMusician = null;
+
+    function makePills(arr) {
+      if (!arr || arr.length === 0) { return '<span style="color:var(--muted);font-size:13px;">—</span>'; }
+      var html = '<div class="modal-pills">';
+      for (var i = 0; i < arr.length; i++) {
+        html += '<span class="modal-pill">' + arr[i] + '</span>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function inlineCopyBtn(id) {
+      return '<button class="inline-copy" id="' + id + '">' +
+        '<svg viewBox="0 0 16 16"><rect x="4" y="4" width="9" height="10" rx="1"/><path d="M3 3V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1"/></svg>' +
+        'Copy</button>';
+    }
+
+    function openModal(m) {
+      currentMusician = m;
+
+      var fullName = m["First Name"] + " " + m["Last Name"];
+      var yearMajor = [m["School Year"], m["Major"]].filter(Boolean).join(" · ");
+
+      modalName.textContent = fullName;
+      modalYearMajor.textContent = yearMajor;
+      modalCopyAllLabel.textContent = "Copy Name, Contact, Instruments & Genre";
+      modalCopyAll.classList.remove("copied");
+
+      var primaryInstruments = splitCell(m["Primary Instruments"]);
+      var additionalInstruments = splitCell(m["Additional Instruments"]);
+      var primaryGenres = splitCell(m["Primary Genre"]);
+      var additionalGenres = splitCell(m["Additional Genres"]);
+      var availability = splitCell(m["Availability"]);
+      var clickVal = m["Click Track"] || "";
+      var clickClass = clickBadgeClass(clickVal);
+      var clickLabel = clickVal || "—";
+      var experience = m["Years of Experience"] || "";
+      var contact = m["Preferred Contact Method"] || "";
+      var portfolio = m["Portfolio Link"] || "";
+      var about = m["About Me"] || "";
+      var email = m["Email Address"] || "";
+      var phone = m["Phone Number"] || "";
+
+      var html = "";
+
+      // Contact section
+      html += '<div class="modal-section">';
+      if (email) {
+        html += '<div class="modal-contact-row">' +
+          '<div class="modal-field"><div class="modal-field-label">Email</div>' +
+          '<div class="modal-field-value">' + email + '</div></div>' +
+          inlineCopyBtn("copyEmail") +
+          '</div>';
+      }
+      if (phone) {
+        html += '<div class="modal-contact-row">' +
+          '<div class="modal-field"><div class="modal-field-label">Phone</div>' +
+          '<div class="modal-field-value">' + phone + '</div></div>' +
+          inlineCopyBtn("copyPhone") +
+          '</div>';
+      }
+      if (contact) {
+        html += '<div class="modal-field"><div class="modal-field-label">Preferred Contact</div>' +
+          '<div class="modal-field-value">' + contact + '</div></div>';
+      }
+      html += '</div><div class="modal-divider"></div>';
+
+      // Instruments
+      html += '<div class="modal-section">';
+      html += '<div class="modal-field"><div class="modal-field-label">Primary Instruments</div>' +
+        makePills(primaryInstruments) + '</div>';
+      if (additionalInstruments.length > 0) {
+        html += '<div class="modal-field"><div class="modal-field-label">Additional Instruments</div>' +
+          makePills(additionalInstruments) + '</div>';
+      }
+      html += '</div><div class="modal-divider"></div>';
+
+      // Genre
+      html += '<div class="modal-section">';
+      html += '<div class="modal-field"><div class="modal-field-label">Primary Genre</div>' +
+        makePills(primaryGenres) + '</div>';
+      if (additionalGenres.length > 0) {
+        html += '<div class="modal-field"><div class="modal-field-label">Additional Genres</div>' +
+          makePills(additionalGenres) + '</div>';
+      }
+      html += '</div><div class="modal-divider"></div>';
+
+      // Click track + experience
+      html += '<div class="modal-section">';
+      html += '<div class="modal-field"><div class="modal-field-label">Click Track</div>' +
+        '<div><span class="click-badge ' + clickClass + '">' + clickLabel + '</span></div></div>';
+      if (experience) {
+        html += '<div class="modal-field"><div class="modal-field-label">Years of Experience</div>' +
+          '<div class="modal-field-value">' + experience + '</div></div>';
+      }
+      html += '</div>';
+
+      // Availability
+      if (availability.length > 0) {
+        html += '<div class="modal-divider"></div>';
+        html += '<div class="modal-section">';
+        html += '<div class="modal-field"><div class="modal-field-label">Availability</div>' +
+          makePills(availability) + '</div>';
+        html += '</div>';
+      }
+
+      // Portfolio + about
+      if (portfolio || about) {
+        html += '<div class="modal-divider"></div>';
+        html += '<div class="modal-section">';
+        if (portfolio) {
+          html += '<div class="modal-field"><div class="modal-field-label">Portfolio / Links</div>' +
+            '<div class="modal-field-value"><a href="' + portfolio + '" target="_blank" rel="noopener" style="color:var(--blue);">' + portfolio + '</a></div></div>';
+        }
+        if (about) {
+          html += '<div class="modal-field"><div class="modal-field-label">About</div>' +
+            '<div class="modal-field-value" style="color:var(--muted);">' + about + '</div></div>';
+        }
+        html += '</div>';
+      }
+
+      modalBody.innerHTML = html;
+
+      // Wire inline copy buttons
+      var copyEmailBtn = document.getElementById("copyEmail");
+      var copyPhoneBtn = document.getElementById("copyPhone");
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          copyText(email, copyEmailBtn);
+        });
+      }
+      if (copyPhoneBtn) {
+        copyPhoneBtn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          copyText(phone, copyPhoneBtn);
+        });
+      }
+
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+      currentMusician = null;
+    }
+
+    // ── COPY HELPERS ──────────────────────────────────────────────────
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(function() {
+        var original = btn.innerHTML;
+        btn.classList.add("copied");
+        if (btn.id === "modalCopyAll") {
+          modalCopyAllLabel.textContent = "Copied!";
+        }
+        setTimeout(function() {
+          btn.classList.remove("copied");
+          if (btn.id === "modalCopyAll") {
+            modalCopyAllLabel.textContent = "Copy Name, Contact, Instruments & Genre";
+          }
+        }, 2000);
+      }).catch(function() {
+        // Fallback for older browsers
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        btn.classList.add("copied");
+        setTimeout(function() { btn.classList.remove("copied"); }, 2000);
+      });
+    }
+
+    modalCopyAll.addEventListener("click", function() {
+      if (!currentMusician) { return; }
+      var m = currentMusician;
+      var primaryInstruments = splitCell(m["Primary Instruments"]);
+      var primaryGenres = splitCell(m["Primary Genre"]);
+      var lines = [];
+      lines.push(m["First Name"] + " " + m["Last Name"]);
+      if (m["Email Address"]) { lines.push("Email: " + m["Email Address"]); }
+      if (m["Phone Number"]) { lines.push("Phone: " + m["Phone Number"]); }
+      if (primaryInstruments.length) { lines.push("Instruments: " + primaryInstruments.join(", ")); }
+      if (primaryGenres.length) { lines.push("Genre: " + (primaryGenres.indexOf("All") !== -1 ? "All Genres" : primaryGenres.join(", "))); }
+      copyText(lines.join("\n"), modalCopyAll);
+    });
+
+    modalClose.addEventListener("click", closeModal);
+    overlay.addEventListener("click", function(e) { if (e.target === overlay) { closeModal(); } });
+    document.addEventListener("keydown", function(e) { if (e.key === "Escape") { closeModal(); } });
+
+    // ── CLEAR FILTERS ─────────────────────────────────────────────────
+    function updateClearBtn() {
+      clearBtn.classList.toggle("visible", !!isFiltered());
+    }
+
+    function clearFilters() {
+      activeSearch = ""; activeInstrument = ""; activeGenre = "";
+      activeClick = ""; activeYear = ""; activeAvail = "";
+      document.getElementById("searchInput").value = "";
+      var selects = ["instrumentFilter","genreFilter","clickFilter","yearFilter","availFilter"];
+      for (var i = 0; i < selects.length; i++) {
+        var el = document.getElementById(selects[i]);
+        el.value = "";
+        el.className = "filter-select";
+      }
+      updateClearBtn();
+      render();
+    }
+
+    clearBtn.addEventListener("click", clearFilters);
+
+    // ── CONTROL EVENTS ────────────────────────────────────────────────
+    function wireSelect(id, setter) {
+      var el = document.getElementById(id);
+      el.addEventListener("change", function() {
+        setter(this.value);
+        this.className = "filter-select" + (this.value ? " active" : "");
+        updateClearBtn();
+        render();
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+      activeSearch = this.value.trim();
+      updateClearBtn();
+      render();
+    });
+
+    wireSelect("instrumentFilter", function(v) { activeInstrument = v; });
+    wireSelect("genreFilter", function(v) { activeGenre = v; });
+    wireSelect("clickFilter", function(v) { activeClick = v; });
+    wireSelect("yearFilter", function(v) { activeYear = v; });
+    wireSelect("availFilter", function(v) { activeAvail = v; });
+
+    // ── NAV ───────────────────────────────────────────────────────────
+    (function() {
+      var nav = document.getElementById("belmontNav");
+      var toggle = document.getElementById("belmontNavToggle");
+      var current = nav.getAttribute("data-current");
+      var links = nav.querySelectorAll(".belmont-nav-link");
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute("data-page") === current) { links[i].classList.add("is-current"); }
+      }
+      toggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var isOpen = nav.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+      document.addEventListener("click", function(e) {
+        if (!nav.contains(e.target)) {
+          nav.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && !overlay.classList.contains("open")) {
+          nav.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
